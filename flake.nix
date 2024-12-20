@@ -21,6 +21,8 @@
 
             ip-address = "192.168.2.1";
             network-interface = "wlp1s0b1";
+
+            prompt-color = 70; # green
           };
         in
           nixpkgs.lib.nixosSystem {
@@ -44,6 +46,8 @@
 
             ip-address = "192.168.2.2";
             network-interface = "wlp3s0";
+
+            prompt-color = 57; # deep blue
           };
         in
           nixpkgs.lib.nixosSystem {
