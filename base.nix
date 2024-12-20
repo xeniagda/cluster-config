@@ -39,6 +39,9 @@
       # TODO: disallow root login?
     };
   };
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC8q5YMnrLJrgp2azcgi9KgwFUIeH6tkEHrv9AxGYmRH xenia@foxhut"
+  ];
 
   # privileged users don't need to type their passwords to use sudo
   security.sudo.wheelNeedsPassword = false;
