@@ -33,5 +33,27 @@
               base
             ];
           };
+      nixosConfigurations."catboy-cafe" =
+        let
+          system = "x86_64-linux";
+          pkgs = mkPkgs system;
+
+          base = mkNixOsBase {
+            inherit system pkgs;
+            hostname = "catboy-cafe";
+
+            ip-address = "192.168.2.2";
+            network-interface = "wlp3s0";
+          };
+        in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              ./wifi-psk.nix
+              ./machines/catboy-cafe/hardware-configuration.nix
+              ./machines/catboy-cafe/boot.nix
+              base
+            ];
+          };
   };
 }
