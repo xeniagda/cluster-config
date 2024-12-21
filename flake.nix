@@ -9,7 +9,11 @@
   outputs = { self, nixpkgs, bnuystore }:
     let
       mkPkgs = system: import nixpkgs { system = system; config.allowUnfree = true; };
-      mkNixOsBase = opts: import ./base.nix (opts // { nixpkgs-flake = nixpkgs; });
+      mkNixOsBase = opts: [
+        (import ./base.nix (opts // { nixpkgs-flake = nixpkgs; }))
+        (import ./bnuystore-storage-node.nix { bnuystore = bnuystore.packages.${opts.system}.bnuystore; })
+        ./wifi-psk.nix
+      ];
     in {
       nixosConfigurations."xn--skrbrda-6wad" =
         let
@@ -28,12 +32,10 @@
         in
           nixpkgs.lib.nixosSystem {
             inherit system;
-            modules = [
-              ./wifi-psk.nix
+            modules = base ++ [
               ./machines/xn--skrbrda-6wad/hardware-configuration.nix
               ./machines/xn--skrbrda-6wad/boot.nix
               ./machines/xn--skrbrda-6wad/machine.nix
-              base
             ];
           };
       nixosConfigurations."catboy-cafe" =
@@ -53,12 +55,11 @@
         in
           nixpkgs.lib.nixosSystem {
             inherit system;
-            modules = [
+            modules = base ++ [
               ./wifi-psk.nix
               ./machines/catboy-cafe/hardware-configuration.nix
               ./machines/catboy-cafe/boot.nix
               (import ./machines/catboy-cafe/machine.nix { bnuystore = bnuystore.packages.${system}.bnuystore; })
-              base
             ];
           };
   };
