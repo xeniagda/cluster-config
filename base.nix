@@ -26,6 +26,11 @@
     } ];
 
     resolvconf.dnsExtensionMechanism = false;
+
+    firewall = {
+      enable = true;
+      allowPing = true;
+    };
   };
 
   programs.bash.promptInit = ''
