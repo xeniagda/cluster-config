@@ -24,6 +24,8 @@
       address = ip-address;
       prefixLength = 16;
     } ];
+
+    resolvconf.dnsExtensionMechanism = false;
   };
 
   programs.bash.promptInit = ''
