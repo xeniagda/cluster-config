@@ -46,12 +46,28 @@
       # TODO: disallow root login?
     };
   };
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC8q5YMnrLJrgp2azcgi9KgwFUIeH6tkEHrv9AxGYmRH xenia@foxhut"
-  ];
+
+  # group that the /config directory (this directory) is owned by
+  users.groups.sysadmin = {};
+
+  users.users.xenia = {
+    isNormalUser = true;
+    home = "/home/xenia";
+    extraGroups = [ "wheel" "sysadmin" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC8q5YMnrLJrgp2azcgi9KgwFUIeH6tkEHrv9AxGYmRH xenia@foxhut"
+    ];
+  };
 
   # privileged users don't need to type their passwords to use sudo
   security.sudo.wheelNeedsPassword = false;
+
+  programs.git = {
+    enable = true;
+    config = {
+      safe.directory = [ "/config" ];
+    };
+  };
 
   # system packages goes here
   environment.systemPackages = with pkgs; [
@@ -59,7 +75,6 @@
     coreutils
 
     lsof file traceroute
-    git
     kakoune vim
   ];
 
