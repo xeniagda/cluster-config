@@ -36,6 +36,9 @@ in with lib; {
     systemd.services.bnuystore-storage-node = {
       enable = true;
 
+      environment = {
+        RUST_LOG = "trace";
+      };
       serviceConfig = {
         ExecStart = lib.escapeShellArgs [
           "${bnuystore}/bin/storage-node"
