@@ -3,9 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    bnuystore.url = "github:xeniagda/bnuystore";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, bnuystore }:
     let
       mkPkgs = system: import nixpkgs { system = system; config.allowUnfree = true; };
       mkNixOsBase = opts: import ./base.nix (opts // { nixpkgs-flake = nixpkgs; });
@@ -56,6 +57,7 @@
               ./wifi-psk.nix
               ./machines/catboy-cafe/hardware-configuration.nix
               ./machines/catboy-cafe/boot.nix
+              (import ./machines/catboy-cafe/machine.nix { bnuystore = bnuystore.packages.${system}.bnuystore; })
               base
             ];
           };
