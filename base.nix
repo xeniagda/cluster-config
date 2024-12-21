@@ -65,7 +65,7 @@
   programs.git = {
     enable = true;
     config = {
-      safe.directory = [ "/config" ];
+      safe.directory = [ "/config" "/config/.git" ];
     };
   };
 
