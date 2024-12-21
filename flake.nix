@@ -35,7 +35,7 @@
             modules = base ++ [
               ./machines/xn--skrbrda-6wad/hardware-configuration.nix
               ./machines/xn--skrbrda-6wad/boot.nix
-              ./machines/xn--skrbrda-6wad/machine.nix
+              (import ./machines/xn--skrbrda-6wad/machine.nix { bnuystore = bnuystore.packages.${system}.bnuystore; })
             ];
           };
       nixosConfigurations."catboy-cafe" =
