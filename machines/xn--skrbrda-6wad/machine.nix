@@ -6,6 +6,7 @@ in {
   environment.systemPackages = [ bnuystore ];
   services.bnuystore-storage-node = {
     enable = true;
+    listen-iface = "wg-bnuy";
   };
 
   # enable wireguard server
