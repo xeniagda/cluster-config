@@ -66,6 +66,15 @@
     ];
   };
 
+  users.users.microwave = {
+    isNormalUser = true;
+    home = "/home/microwave";
+    extraGroups = [ "wheel" "sysadmin" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMlXhJg9d/YdevataI+SJIx8lmDyqnU53CzsFY8UKERq microwave@uila"
+    ];
+  };
+
   # privileged users don't need to type their passwords to use sudo
   security.sudo.wheelNeedsPassword = false;
 
