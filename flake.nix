@@ -47,7 +47,7 @@
             inherit system pkgs;
             hostname = "catboy-cafe";
 
-            ip-address = "192.168.2.0";
+            ip-address = "192.168.2.254";
             network-interface = "wlp3s0";
 
             prompt-color = 68; # blue
