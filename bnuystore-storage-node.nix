@@ -20,6 +20,11 @@ in with lib; {
       type = types.int;
       default = 1312;
     };
+
+    listen-iface = mkOption {
+      type = types.nullOr types.string;
+      default = null;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -40,15 +45,21 @@ in with lib; {
         RUST_LOG = "trace";
       };
       serviceConfig = {
-        ExecStart = lib.escapeShellArgs [
+        ExecStart = lib.escapeShellArgs ([
           "${bnuystore}/bin/storage-node"
           "--addr" "0.0.0.0:${toString cfg.port}"
           "--data-dir" cfg.data-directory
-        ];
+        ] ++ optionals (cfg.listen-iface != null) [
+          "--iface" cfg.listen-iface
+        ]);
         Type = "simple";
         User = "bnuystore-storage-node";
       };
     };
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
+    networking.firewall = if cfg.listen-iface == null then {
+      allowedTCPPorts = [ cfg.port ];
+    } else {
+      interfaces."${cfg.listen-iface}".allowedTCPPorts = [ cfg.port ];
+    };
   };
 }
