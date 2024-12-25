@@ -73,6 +73,7 @@
     enable = true;
     config = {
       safe.directory = [ "/config" "/config/.git" ];
+      core.fileMode = false; # ignore chmod on all files
     };
   };
 
