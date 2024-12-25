@@ -24,6 +24,10 @@ in {
           publicKey = lib.readFile ./../../keys/foxhut.public;
           allowedIPs = [ "10.100.1.1/32" ];
         }
+        { # microwave
+          publicKey = lib.readFile ./../../keys/microwave.public;
+          allowedIPs = [ "10.100.1.42/32" ];
+        }
       ];
     };
   };
