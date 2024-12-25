@@ -22,7 +22,7 @@ in with lib; {
     };
 
     listen-iface = mkOption {
-      type = types.nullOr types.string;
+      type = types.nullOr types.str;
       default = null;
     };
   };
