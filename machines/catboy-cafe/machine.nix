@@ -28,6 +28,10 @@ in {
           publicKey = lib.readFile ./../../keys/microwave.public;
           allowedIPs = [ "10.100.1.42/32" ];
         }
+        { # skärbräda
+          publicKey = lib.readFile ./../../keys/xn--skrbrda-6wad.public;
+          allowedIPs = [ "10.100.100.1/32" ];
+        }
       ];
     };
   };
