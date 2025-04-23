@@ -1,4 +1,4 @@
-{ bnuystore }:
+{ bnuystore, cal-render }:
 { config, lib, pkgs, modulesPath, ... }:
 
 let wg-port = 51820;
@@ -11,7 +11,7 @@ in {
     listen-iface = "wg-bnuy";
   };
 
-  networking.firewall.allowedTCPPorts = [ 8123 ];
+  networking.firewall.allowedTCPPorts = [ 8123 2137 ]; # 2137 for eink-cal
   virtualisation.containers.enable = true;
   virtualisation = {
     podman = {
@@ -63,4 +63,25 @@ in {
       ];
     };
   };
+
+  # TODO: this should be moved into a module in cal_render, probably
+
+  systemd.services.cal_render =
+{
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+
+    serviceConfig = {
+      ExecStart = "${cal-render}/bin/cal-render --secrets /config/keys/private/calendar.toml serve -p 2137";
+      Type = "simple";
+      User = "cal_render";
+    };
+  };
+  users.users.cal_render = {
+    isSystemUser = true;
+    description = "cal_render system user";
+    group = "sysadmin";
+  };
 }
+

@@ -4,9 +4,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     bnuystore.url = "github:xeniagda/bnuystore";
+    eink-cal.url = "github:xeniagda/eink-cal";
   };
 
-  outputs = { self, nixpkgs, bnuystore }:
+  outputs = { self, nixpkgs, bnuystore, eink-cal }:
     let
       mkPkgs = system: import nixpkgs { system = system; config.allowUnfree = true; };
       mkNixOsBase = opts: [
@@ -59,7 +60,10 @@
               ./wifi-psk.nix
               ./machines/catboy-cafe/hardware-configuration.nix
               ./machines/catboy-cafe/boot.nix
-              (import ./machines/catboy-cafe/machine.nix { bnuystore = bnuystore.packages.${system}.bnuystore; })
+              (import ./machines/catboy-cafe/machine.nix {
+                bnuystore = bnuystore.packages.${system}.bnuystore;
+                cal-render = eink-cal.packages.${system}.cal-render;
+              })
             ];
           };
   };
