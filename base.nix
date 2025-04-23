@@ -95,8 +95,6 @@
     kakoune vim
   ];
 
-  virtualisation.docker.enable = true;
-
   # nix-internal settings
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];

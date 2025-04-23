@@ -11,6 +11,33 @@ in {
     listen-iface = "wg-bnuy";
   };
 
+  networking.firewall.allowedTCPPorts = [ 8123 ];
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
+  virtualisation.oci-containers = {
+    backend = "podman";
+    containers.homeassistant = {
+      volumes = [ "home-assistant:/home-assistant" ];
+      environment.TZ = "Europe/Berlin";
+      image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
+      extraOptions = [
+        "--network=host"
+        "--device=/dev/ttyUSB0:/dev/ttyUSB0"  # Example, change this to match your own hardware
+      ];
+    };
+  };
+
   # enable wireguard server
   networking.firewall.allowedUDPPorts = [ wg-port ];
   networking.wireguard = {
