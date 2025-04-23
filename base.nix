@@ -33,6 +33,8 @@
     };
   };
 
+  services.iperf3.enable = true;
+
   programs.bash.promptInit = ''
     PROMPT_COLOR="38;5;${builtins.toString prompt-color}m"
     PS1="\n\[\033[$PROMPT_COLOR\][\u@\h:\w]\\$\[\033[0m\] "
