@@ -15,10 +15,10 @@
     wireless.enable = true;
 
     defaultGateway = {
-      address = "192.168.1.1";
+      address = "192.168.0.1";
       interface = network-interface;
     };
-    nameservers = [ "192.168.1.1" ];
+    nameservers = [ "192.168.0.1" ];
 
     interfaces."${network-interface}".ipv4.addresses = [ {
       address = ip-address;
