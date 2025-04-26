@@ -5,9 +5,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     bnuystore.url = "github:xeniagda/bnuystore";
     eink-cal.url = "github:xeniagda/eink-cal";
+    aptus-open.url = "github:xeniagda/aptus-open";
   };
 
-  outputs = { self, nixpkgs, bnuystore, eink-cal }:
+  outputs = { self, nixpkgs, bnuystore, eink-cal, aptus-open }:
     let
       mkPkgs = system: import nixpkgs { system = system; config.allowUnfree = true; };
       mkNixOsBase = opts: [
@@ -63,6 +64,7 @@
               (import ./machines/catboy-cafe/machine.nix {
                 bnuystore = bnuystore.packages.${system}.bnuystore;
                 cal-render = eink-cal.packages.${system}.cal-render;
+                aptus-open = aptus-open.packages.${system}.aptus-open;
               })
             ];
           };

@@ -1,4 +1,4 @@
-{ bnuystore, cal-render }:
+{ bnuystore, cal-render, aptus-open }:
 { config, lib, pkgs, modulesPath, ... }:
 
 let wg-port = 51820;
@@ -66,8 +66,7 @@ in {
 
   # TODO: this should be moved into a module in cal_render, probably
 
-  systemd.services.cal_render =
-{
+  systemd.services.cal_render = {
     enable = true;
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
@@ -75,13 +74,26 @@ in {
     serviceConfig = {
       ExecStart = "${cal-render}/bin/cal-render --secrets /config/keys/private/calendar.toml serve -p 2137";
       Type = "simple";
-      User = "cal_render";
+      User = "service";
     };
   };
-  users.users.cal_render = {
+
+  systemd.services.aptus-open = {
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+
+    serviceConfig = {
+      ExecStart = "${aptus-open}/bin/aptus-open --secrets /config/keys/private/aptus.toml -p 2138";
+      Type = "simple";
+      User = "service";
+    };
+  };
+
+  users.users.service = {
     isSystemUser = true;
-    description = "cal_render system user";
-    group = "sysadmin";
+    description = "runner for various user-defined services";
+    group = "sysadmin"; # needs to be able to access some files in /config/keys/private
   };
 }
 
