@@ -79,6 +79,7 @@ in {
       ExecStart = "${cal-render}/bin/cal-render --secrets /config/keys/private/calendar.toml serve -p 2137";
       Type = "simple";
       User = "service";
+      Restart = "on-failure";
     };
   };
 
@@ -91,6 +92,7 @@ in {
       ExecStart = "${aptus-open}/bin/aptus-open --secrets /config/keys/private/aptus.toml -p 2138";
       Type = "simple";
       User = "service";
+      Restart = "on-failure";
     };
   };
 
