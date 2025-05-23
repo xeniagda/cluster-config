@@ -33,7 +33,10 @@
     };
   };
 
-  services.iperf3.enable = true;
+  services.iperf3 = {
+    enable = true;
+    openFirewall = true;
+  };
 
   programs.bash.promptInit = ''
     PROMPT_COLOR="38;5;${builtins.toString prompt-color}m"
