@@ -96,7 +96,7 @@
     binutils
     coreutils
 
-    lsof file traceroute
+    lsof file traceroute htop
     kakoune vim
   ];
 
