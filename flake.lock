@@ -46,11 +46,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1745448604,
-        "narHash": "sha256-39hicUd+NRswKvO2qg+zRzSiYSrSDqLy4TWligNM2lI=",
+        "lastModified": 1748043129,
+        "narHash": "sha256-Xn7fofwhDmLQ/oEor5mkRmpMrRxzartLoR0VbER0Ltg=",
         "owner": "xeniagda",
         "repo": "eink-cal",
-        "rev": "f1eccc17c1bc30f19d381aed94dab9368df28bb1",
+        "rev": "def0b29b533171ac76977810dfd08b8d3c314a4a",
         "type": "github"
       },
       "original": {
